@@ -1,4 +1,4 @@
-from fastapi import FastAPI,Path,Optional
+from fastapi import FastAPI,Path
 from data import projectsOut
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -12,7 +12,7 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  
+    allow_origins=["*"],  
     allow_credentials=True, 
     allow_methods=["*"], 
     allow_headers=["*"],
@@ -26,11 +26,11 @@ class Project(BaseModel):
     project_url: str
 
 class UpdateProject(BaseModel):
-    id : Optional[int] = None
-    title:Optional[str] = None
-    description:Optional[str] = None
-    image_url:Optional[str] = None
-    project_url: Optional[str] = None
+    id : int = None
+    title:str = None
+    description:str = None
+    image_url:str = None
+    project_url: str = None
 
 @app.get("/")
 def index():
